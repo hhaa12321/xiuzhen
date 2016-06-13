@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.i_cambio.xiuzhen.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.i_cambio.xiuzhen.model.User" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="BIGINT" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CREATE_DATE, UPDATE_DATE
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_user
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tbl_user
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.i_cambio.xiuzhen.model.User" >
+    insert into tbl_user (ID, CREATE_DATE, UPDATE_DATE
+      )
+    values (#{id,jdbcType=BIGINT}, #{createDate,jdbcType=BIGINT}, #{updateDate,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.i_cambio.xiuzhen.model.User" >
+    insert into tbl_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=BIGINT},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.i_cambio.xiuzhen.model.User" >
+    update tbl_user
+    <set >
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=BIGINT},
+      </if>
+      <if test="updateDate != null" >
+        UPDATE_DATE = #{updateDate,jdbcType=BIGINT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.i_cambio.xiuzhen.model.User" >
+    update tbl_user
+    set CREATE_DATE = #{createDate,jdbcType=BIGINT},
+      UPDATE_DATE = #{updateDate,jdbcType=BIGINT}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
